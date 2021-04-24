@@ -8,6 +8,5 @@ add_executable(
         main.h
         dispatcher.cpp
         dispatcher.h
-        task.cpp
         task.h
 )

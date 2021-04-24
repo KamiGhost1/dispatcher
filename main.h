@@ -12,6 +12,7 @@
 #include <cstring>
 #include <stdlib.h>
 #include <vector>
+#include <fstream>
 #include "dispatcher.h"
 #include "task.h"
 using namespace std;
