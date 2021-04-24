@@ -11,6 +11,7 @@ void dispatcher::start(int C, char **V) {
     if(mode == 1){
         this->main_cycle();
         this->write_dataFiles();
+        this->draw_graphs();
     }
 }
 
@@ -148,6 +149,7 @@ void dispatcher::main_cycle() {
                 this->global_timer++;
             }
         }
+        this->global_timer++;
         cout<<"end served"<<endl;
     }else{
         cout<<"no task in work";
@@ -155,10 +157,48 @@ void dispatcher::main_cycle() {
     }
 }
 
-void dispatcher::create_dataFiles(task elem) {}
+void dispatcher::create_dataFiles(task elem) {
+    ofstream file;
+    bool found;
+    string str = "data/"+elem.name+".data.txt";
+    this->graph_names.push_back(str);
+    file.open(str);
+    int last = 0;
+    for(int i = 0; i < this->global_timer;i++){
+        found = false;
+        for(int j = 0; j<elem.statistic.size();j++){
+            if(elem.statistic[j] == i)
+                found = true;
+        }
+        if(found){
+            file<<i<<" "<<10<<endl;
+        }else{
+            file<<i<<" "<<0<<endl;
+        }
+    }
+}
 
 void dispatcher::write_dataFiles() {
     for(int i = 0; i < this->tasks_array.size();i++){
         this->create_dataFiles(this->tasks_array[i]);
+    }
+}
+
+void dispatcher::draw_graphs() {
+    FILE *gp = popen("gnuplot -persist","w");
+    string cmd = "plot ";
+    if(!gp){
+        cout<<"Error"<<endl;
+        exit(1);
+    }else{
+        for(int i=0;i<graph_names.size();i++){
+            cmd += '"'+graph_names[i]+'"'+" with lines, ";
+        }
+        cmd+='\n';
+        char *gpcmd;
+        gpcmd = strToChar(cmd);
+        fprintf(gp, gpcmd);
+        delete(gpcmd);
+        pclose(gp);
     }
 }

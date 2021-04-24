@@ -25,10 +25,12 @@ private:
     int count_not_served_task();
     void write_dataFiles();
     void create_dataFiles(task elem);
+    void draw_graphs();
     int global_timer;
     int max_time;
     bool foundTask;
     vector<task> tasks_array;
+    vector<string> graph_names;
 };
 
 
