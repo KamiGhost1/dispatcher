@@ -140,6 +140,7 @@ void dispatcher::main_cycle() {
     if(this->tasks_array.size() > 0){
         cout<<"task to served: "<<this->tasks_array.size()<<endl;
         while(this->count_not_served_task() > 0){
+            cout<<this->global_timer<<endl;
             this->foundTask = false;
             id = foundMinTime();
             if(this->foundTask == 1){
@@ -148,7 +149,6 @@ void dispatcher::main_cycle() {
             }else{
                 this->global_timer++;
             }
-            cout<<this->global_timer<<endl;
         }
         cout<<"end served"<<endl;
     }else{
