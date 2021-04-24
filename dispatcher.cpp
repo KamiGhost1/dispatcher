@@ -13,6 +13,10 @@ void dispatcher::start(int C, char **V) {
         this->write_dataFiles();
         this->draw_graphs();
     }
+    if(mode == 2){
+        this->main_cycle();
+        this->write_dataFiles();
+    }
 }
 
 void dispatcher::opener() {
@@ -46,6 +50,12 @@ int dispatcher::check_param(int C, char **V) {
             return 1;
         }
     }
+    if(C == 4){
+        if(!strcmp(V[1],"-i") && !strcmp(V[3],"--no-draw") ){
+            this->read_task(V[2]);
+            return 2;
+        }
+    }
     cout<<"unknown parameters. use -h for more info."<<endl;
     return -1;
 }
@@ -54,6 +64,7 @@ void dispatcher::help() {
     cout<<"\tHELP MENU"<<endl;
     cout<<"-h - help"<<endl;
     cout<<"-i < task file > - open task list from file"<<endl;
+    cout<<"-i < task file > --no-draw - open task list from file and no draw graphs"<<endl;
 }
 
 void dispatcher::read_task(char *file_name) {
@@ -158,11 +169,12 @@ void dispatcher::main_cycle() {
 }
 
 void dispatcher::create_dataFiles(task elem) {
-    ofstream file;
+    ofstream file, stat;
     bool found;
     string str = "data/"+elem.name+".data.txt";
     this->graph_names.push_back(str);
     file.open(str);
+    stat.open("data/"+elem.name+".csv");
     int last = 0;
     for(int i = 0; i < this->global_timer;i++){
         found = false;
@@ -172,10 +184,14 @@ void dispatcher::create_dataFiles(task elem) {
         }
         if(found){
             file<<i<<" "<<10<<endl;
+            stat<<i<<";"<<elem.name<<endl;
         }else{
             file<<i<<" "<<0<<endl;
+            stat<<i<<";"<<0<<endl;
         }
     }
+    file.close();
+    stat.close();
 }
 
 void dispatcher::write_dataFiles() {
