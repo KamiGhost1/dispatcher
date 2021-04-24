@@ -23,6 +23,8 @@ private:
     void foundMaxTime();
     void life_step(int id);
     int count_not_served_task();
+    void write_dataFiles();
+    void create_dataFiles(task elem);
     int global_timer;
     int max_time;
     bool foundTask;

@@ -9,7 +9,8 @@ void dispatcher::start(int C, char **V) {
     int mode;
     mode = this->check_param(C, V);
     if(mode == 1){
-        main_cycle();
+        this->main_cycle();
+        this->write_dataFiles();
     }
 }
 
@@ -52,8 +53,6 @@ void dispatcher::help() {
     cout<<"\tHELP MENU"<<endl;
     cout<<"-h - help"<<endl;
     cout<<"-i < task file > - open task list from file"<<endl;
-//    cout<<"-h - help"<<endl;
-//    cout<<"-h - help"<<endl;
 }
 
 void dispatcher::read_task(char *file_name) {
@@ -136,7 +135,6 @@ void dispatcher::foundMaxTime() {
 void dispatcher::main_cycle() {
     this->init();
     int id = 0;
-    int check_timer = 0;
     if(this->tasks_array.size() > 0){
         cout<<"task to served: "<<this->tasks_array.size()<<endl;
         while(this->count_not_served_task() > 0){
@@ -144,7 +142,7 @@ void dispatcher::main_cycle() {
             this->foundTask = false;
             id = foundMinTime();
             if(this->foundTask == 1){
-                cout<<"this: "<< id <<" and found: "<<foundTask<<endl;
+                cout<<"id served: "<< id <<"; name: "<<this->tasks_array[id].name<<endl;
                 this->life_step(id);
             }else{
                 this->global_timer++;
@@ -154,5 +152,13 @@ void dispatcher::main_cycle() {
     }else{
         cout<<"no task in work";
         exit(0);
+    }
+}
+
+void dispatcher::create_dataFiles(task elem) {}
+
+void dispatcher::write_dataFiles() {
+    for(int i = 0; i < this->tasks_array.size();i++){
+        this->create_dataFiles(this->tasks_array[i]);
     }
 }

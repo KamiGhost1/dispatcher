@@ -1,2 +1,5 @@
 first;1;4
 second;2;2
+third;5;5
+for;4;3
+five;21;2
