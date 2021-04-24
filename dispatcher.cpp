@@ -192,7 +192,7 @@ void dispatcher::draw_graphs() {
         exit(1);
     }else{
         for(int i=0;i<graph_names.size();i++){
-            cmd += '"'+graph_names[i]+'"'+" with lines, ";
+            cmd += '"'+graph_names[i]+'"'+" with filledcurves, ";
         }
         cmd+='\n';
         char *gpcmd;
