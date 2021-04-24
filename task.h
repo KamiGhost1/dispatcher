@@ -11,6 +11,7 @@ class task {
 public:
     string name;
     int init_time, work_time;
+    vector<int> statistic;
 };
 
 

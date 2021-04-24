@@ -17,6 +17,15 @@ private:
     int check_param(int C, char **V);
     void read_task(char *file_name);
     char *strToChar(string m);
+    void main_cycle();
+    void init();
+    int foundMinTime();
+    void foundMaxTime();
+    void life_step(int id);
+    int count_not_served_task();
+    int global_timer;
+    int max_time;
+    bool foundTask;
     vector<task> tasks_array;
 };
 

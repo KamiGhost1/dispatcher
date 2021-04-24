@@ -8,6 +8,9 @@
 void dispatcher::start(int C, char **V) {
     int mode;
     mode = this->check_param(C, V);
+    if(mode == 1){
+        main_cycle();
+    }
 }
 
 void dispatcher::opener() {
@@ -81,4 +84,75 @@ char* dispatcher::strToChar(string m) {
         mes[i]=m[i];
     }
     return mes;
+}
+
+int dispatcher::count_not_served_task() {
+    int count = 0;
+    for(int i = 0; i < this->tasks_array.size();i++){
+        if(this->tasks_array[i].work_time>0){
+            count++;
+        }
+    }
+    return count;
+}
+
+void dispatcher::init() {
+    this->global_timer = 0;
+    this->foundTask = false;
+    this->max_time = 0;
+    this->foundMaxTime();
+}
+
+void dispatcher::life_step(int id) {
+    this->tasks_array[id].work_time = this->tasks_array[id].work_time - 1;
+    this->tasks_array[id].statistic.push_back(this->global_timer);
+    this->global_timer++;
+}
+
+int dispatcher::foundMinTime() {
+    int id = 0;
+    int min = this->max_time + 1;
+    for(int i = 0; i < this->tasks_array.size();i++){
+        if(this->global_timer >= this->tasks_array[i].init_time){
+            if(min > this->tasks_array[i].work_time && this->tasks_array[i].work_time > 0){
+                min = this->tasks_array[i].work_time;
+                id = i;
+                this->foundTask = true;
+            }
+        }
+    }
+    return id;
+}
+
+void dispatcher::foundMaxTime() {
+    for(int i = 0; i<this->tasks_array.size();i++){
+        if(this->max_time<this->tasks_array[i].work_time)
+            this->max_time = this->tasks_array[i].work_time;
+    }
+}
+
+
+
+void dispatcher::main_cycle() {
+    this->init();
+    int id = 0;
+    int check_timer = 0;
+    if(this->tasks_array.size() > 0){
+        cout<<"task to served: "<<this->tasks_array.size()<<endl;
+        while(this->count_not_served_task() > 0){
+            this->foundTask = false;
+            id = foundMinTime();
+            if(this->foundTask == 1){
+                cout<<"this: "<< id <<" and found: "<<foundTask<<endl;
+                this->life_step(id);
+            }else{
+                this->global_timer++;
+            }
+            cout<<this->global_timer<<endl;
+        }
+        cout<<"end served"<<endl;
+    }else{
+        cout<<"no task in work";
+        exit(0);
+    }
 }
