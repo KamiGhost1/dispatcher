@@ -1,0 +1,39 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ball to target</title>
+<!--    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />-->
+	<link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css">
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/Chart.js"></script>
+</head>
+<body style="background: ghostwhite;">
+    <div class="container">
+        <canvas id="myChart" width="600" height="400"></canvas>
+    </div>
+    <div class="container">
+        <div class="">
+            <h5>вводные данные</h5>
+        </div>
+        <div class=" border border-1 border-dark">
+            <div class="d-flex justify-content-between" style="margin: 20px 10px">
+                <input type="text" class="text" id='v' placeholder="V">
+                <input type="text" class="text" id="alpha" placeholder="alpha">
+<!--                <input type="text" class="text" id="g" placeholder="g(default 10)">-->
+            </div>
+        </div>
+        <div class="container d-flex justify-content-between" style="margin-top: 10px">
+            <button id="graphBtn" class="btn btn-warning" graph>график по текущим парметрам</button>
+            <button id="searchBtn" class="btn btn-success">найти найти угол</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            let a = new main()
+            a.start()
+        })
+    </script>
+</body>
+</html>
