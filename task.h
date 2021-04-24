@@ -5,9 +5,12 @@
 #ifndef CRC_TASK_H
 #define CRC_TASK_H
 
+#include "main.h"
 
 class task {
-
+public:
+    string name;
+    int init_time, work_time;
 };
 
 

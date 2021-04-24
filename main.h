@@ -7,8 +7,11 @@
 
 #endif //CRC_MAIN_H
 
-#include "iostream"
-#include "string"
+#include <iostream>
+#include <string.h>
+#include <cstring>
+#include <stdlib.h>
+#include <vector>
 #include "dispatcher.h"
-
+#include "task.h"
 using namespace std;
