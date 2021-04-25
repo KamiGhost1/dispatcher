@@ -17,6 +17,7 @@ void dispatcher::start(int C, char **V) {
         this->main_cycle();
         this->write_dataFiles();
     }
+    this->reset();
 }
 
 void dispatcher::opener() {
@@ -112,6 +113,15 @@ void dispatcher::init() {
     this->foundTask = false;
     this->max_time = 0;
     this->foundMaxTime();
+}
+
+void dispatcher::reset() {
+    this->init();
+    this->graph_names.clear();
+    for(int i = 0; i<this->tasks_array.size();i++){
+        this->tasks_array[i].statistic.clear();
+    }
+    this->tasks_array.clear();
 }
 
 void dispatcher::life_step(int id) {

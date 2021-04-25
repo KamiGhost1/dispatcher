@@ -19,6 +19,7 @@ private:
     char *strToChar(string m);
     void main_cycle();
     void init();
+    void reset();
     int foundMinTime();
     void foundMaxTime();
     void life_step(int id);
