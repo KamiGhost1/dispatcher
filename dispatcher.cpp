@@ -203,7 +203,7 @@ void dispatcher::main_cycle_SRT() {
                 cout<<this->global_timer<<" ; cpu: 100 ; "<< "task: "<<tasks_array[id].name<<"; queue: "<<log<<endl;
                 this->life_step(id);                                                       // имитация выполнения задачи
             }else{                                                                         // иначе
-                cout<<this->global_timer<<" ; cpu 0 ; "<<endl;
+                cout<<this->global_timer<<" ; cpu 0 ; task: 0; queue: "<<log<<endl;
                 this->global_timer++;                                                      // просто +1 к глобалному счетчику
             }
         }                                                                                  //--------------------------------
@@ -226,7 +226,7 @@ void dispatcher::main_cycle_SJN() {
             if(this->foundTask == 1){
                 this->life_step_SJN(id);
             }else{
-                cout<<this->global_timer<<" ; cpu 0 ; "<<endl;
+                cout<<this->global_timer<<" ; cpu 0 ; task: 0; queue: 0"<<endl;
                 this->global_timer++;
             }
         }
