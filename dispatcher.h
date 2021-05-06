@@ -29,9 +29,9 @@ private:                                        //------------------------------
     void write_dataFiles();                     // функция записи данных в файл. тут происходит перебор задач и отправка в дочернюю ф.
     void create_dataFiles(task elem);           // дочерняя функция. создает файл и записывает
     void draw_graphs();                         // функция отрисовки данных
-    void buildQueue( string name);
+    void buildQueue();
     void queue_sort();
-    string print_queue();
+    string print_queue(string name);
     int global_timer;                           // глобальный счетчик тактов
     int max_time;                               // максимальное заказное время 
     bool foundTask;                             // флаг, показывающий, что задача для выполнения есть 

@@ -112,7 +112,7 @@ void dispatcher::read_task(char *file_name) {
 }
 
 char* dispatcher::strToChar(string m) {
-    char *mes = new char[m.length()];                        // выделяем память по длинне строки 
+    char *mes = new char[m.length()];                        // выделяем память по длинне строки
     for(int i=0;i<m.length();i++){
         mes[i]=m[i];                                         // копируем строку в массив символов 
     }
@@ -155,8 +155,8 @@ void dispatcher::life_step(int id) {
 void dispatcher::life_step_SJN(int id) {
     string log;
     while(this->tasks_array[id].work_time>0){
-        this->buildQueue(this->tasks_array[id].name);
-        log = this->print_queue();
+        this->buildQueue();
+        log = this->print_queue(this->tasks_array[id].name);
         cout<<this->global_timer<<" ; cpu: 100 ; "<< "task: "<<tasks_array[id].name<<"; queue: "<<log<<endl;
         this->tasks_array[id].work_time = this->tasks_array[id].work_time - 1;
         this->tasks_array[id].statistic.push_back(this->global_timer);
@@ -197,8 +197,8 @@ void dispatcher::main_cycle_SRT() {
         while(this->count_not_served_task() > 0){                                          // пока есть не обслужанные задачи
             this->foundTask = false;                                                       // обнуляем флаг
             id = foundMinTime();// ищем задачу с минимальным заказным времеем
-            this->buildQueue(this->tasks_array[id].name);
-            log = this->print_queue();
+            this->buildQueue();
+            log = this->print_queue(this->tasks_array[id].name);
             if(this->foundTask == 1){                                                      // задача есть ?
                 cout<<this->global_timer<<" ; cpu: 100 ; "<< "task: "<<tasks_array[id].name<<"; queue: "<<log<<endl;
                 this->life_step(id);                                                       // имитация выполнения задачи
@@ -289,19 +289,16 @@ void dispatcher::draw_graphs() {
     }
 }
 
-void dispatcher::buildQueue(string name) {
+void dispatcher::buildQueue() {
     if(this->queue.size()>0)
         this->queue.clear();
-    char *name1, *name2;
-    name1 = this->strToChar(name);
     if(tasks_array.size()>0){
         for(int i = 0;i<this->tasks_array.size();i++){
-            name2 = this->strToChar(this->tasks_array[i].name);
             if(this->global_timer >= this->tasks_array[i].init_time){
-                if(this->tasks_array[i].work_time > 0 && strcmp(name1,name2))
+                if(this->tasks_array[i].work_time > 0){
                     this->queue.push_back(this->tasks_array[i]);
+                }
             }
-            delete name2;
         }
         if(this->queue.size()>1){
             this->queue_sort();
@@ -318,13 +315,14 @@ void dispatcher::queue_sort(){
 }
 
 
-string dispatcher::print_queue() {
-    string str;
+string dispatcher::print_queue(string name) {
+    string str="";
     if(queue.size()>1){
-        str = queue[1].name;
-        if(queue.size()>2){
-            for(int i = 2;i < queue.size();i++){
-                str+="; "+queue[i].name;
+        for(int i = 0; i<queue.size();i++){
+            if(queue[i].name == name){
+                continue;
+            } else{
+                str+=queue[i].name + ", ";
             }
         }
     }else{
