@@ -15,4 +15,5 @@
 #include <fstream>           // -----------------------------------------------------------
 #include "dispatcher.h"      // подключение заголовков проекта, чтобы main мог создавать объекты классов. 
 #include "task.h"            //
+#include <algorithm>
 using namespace std;
