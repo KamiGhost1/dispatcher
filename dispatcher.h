@@ -2,37 +2,37 @@
 // Created by ghost on 24.04.2021.
 //
 
-#ifndef CRC_DISPATCHER_H
-#define CRC_DISPATCHER_H
+#ifndef DISPATCHER_H
+#define DISPATCHER_H
 
-#include "task.h"
-#include "main.h"
-#include <cstring>
-class dispatcher {
-public:
-    void start(int C, char **V);
-private:
-    void opener();
-    void help();
-    int check_param(int C, char **V);
-    void read_task(char *file_name);
-    char *strToChar(string m);
-    void main_cycle();
-    void init();
-    void reset();
-    int foundMinTime();
-    void foundMaxTime();
-    void life_step(int id);
-    int count_not_served_task();
-    void write_dataFiles();
-    void create_dataFiles(task elem);
-    void draw_graphs();
-    int global_timer;
-    int max_time;
-    bool foundTask;
-    vector<task> tasks_array;
-    vector<string> graph_names;
+
+#include "main.h"                               // подключаем заголовок main. в нем содержится все необхъодимое для работы
+
+class dispatcher {                              //
+public:                                         //-------------------------------------------------------
+    void start(int C, char **V);                // публичный метод, для старта работы
+private:                                        //-------------------------------------------------------
+    void opener();                              // просто красивое превью, которое нужно просто как метка автора. т.е моя 
+    void help();                                // меню помощи 
+    int check_param(int C, char **V);           // функиця проверки параметров 
+    void read_task(char *file_name);            // функция для чтения файла, в котором содержатся задачи
+    char *strToChar(string m);                  // функиця перевода строки в массив символов, возвращает указатель
+    void main_cycle();                          // основной цикл функции
+    void init();                                // инициализация. выставления начальных настроек 
+    void reset();                               // сброс. отчистка всех динамических данных из памяти
+    int foundMinTime();                         // функция поиска минимального заказного времени 
+    void foundMaxTime();                        // функция поиска максмального заказного времени
+    void life_step(int id);                     // функция имитации выполнения задачи 
+    int count_not_served_task();                // функция поиска задач, у которых отсавшееся время > 0 
+    void write_dataFiles();                     // функция записи данных в файл. тут происходит перебор задач и отправка в дочернюю ф.
+    void create_dataFiles(task elem);           // дочерняя функция. создает файл и записывает
+    void draw_graphs();                         // функция отрисовки данных 
+    int global_timer;                           // глобальный счетчик тактов
+    int max_time;                               // максимальное заказное время 
+    bool foundTask;                             // флаг, показывающий, что задача для выполнения есть 
+    vector<task> tasks_array;                   // динамическая память для задач
+    vector<string> graph_names;                 // динамическая память для имен графиков
 };
 
 
-#endif //CRC_DISPATCHER_H
+#endif //DISPATCHER_H

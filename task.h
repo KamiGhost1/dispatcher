@@ -7,12 +7,12 @@
 
 #include "main.h"
 
-class task {
-public:
-    string name;
-    int init_time, work_time;
-    vector<int> statistic;
-};
+class task {                     // класс задачи. имеет все публичные поля
+public:                          // 
+    string name;                 // имя задачи
+    int init_time, work_time;    // время инициализации, заказное время задачи
+    vector<int> statistic;       // динамические данные статистики выполнения задачи
+};                               // 
 
 
-#endif //CRC_TASK_H
+#endif //TASK_H
